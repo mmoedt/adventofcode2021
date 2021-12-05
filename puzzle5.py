@@ -48,11 +48,11 @@ def markFromLine(x1, y1, x2, y2):
         for i in range(st, end+1):
             incrPoint(i, y1)
         pass
-    else:
+    else:  # diagonal
         incrPoint(x1,y1)
         debug("diag from %d,%d to %d,%d" % (x1,y1,x2,y2))
         while x1 != x2:  # it must match if conditions are as prescribed
-            if x1 < x2:  # end condition
+            if x1 < x2:
                 x1 += 1
             else:
                 x1 -= 1
