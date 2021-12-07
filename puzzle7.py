@@ -2,20 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import math
+import sys
 from util import debug
 
 
 def main(args):
     global positions
-    positions = [16,1,2,0,4,2,7,1,2,14]
+    positions = [16, 1, 2, 0, 4, 7, 2, 1, 2, 14]
 
-    # function test:
-    tests = [(2, 37), (1, 41), (3, 39), (10, 71)]
-    for case, expected in tests:
-        result = fuelForA(case)
-        fail_str = "" if result == expected else bold(' *** FAIL ***')
-        print(f"Fuel for {case}: {result}, should be {expected}{fail_str}")
-
+    tests_totalFuelForA()
     puzA(True)
 
     with open('input/input7.txt', 'r') as infile:
@@ -27,19 +22,8 @@ def main(args):
     # Checked adjacent values and stopped at local minimum 328, with 339321 fuel.
 
     positions = [16, 1, 2, 0, 4, 2, 7, 1, 2, 14]
-
-    tests = [(16, 5, 66), (1, 5, 10), (2, 5, 6), (0, 5, 15), (14, 5, 45)]
-    for start, end, expected in tests:
-        result = fuelForB(start, end)
-        fail_str = "" if result == expected else bold(' *** FAIL ***')
-        print(f"Fuel for {start} to {end}: {result}, should be {expected}{fail_str}")
-
-    tests = [(5, 168), (2, 206)]
-    for case, expected in tests:
-        result = totalFuelForB(case)
-        fail_str = "" if result == expected else bold(' *** FAIL ***')
-        print(f"Fuel for {case}: {result}, should be {expected}{fail_str}")
-
+    tests_fuelForB()
+    tests_totalFuelForB()
     puzB(True)
 
     with open('input/input7.txt', 'r') as infile:
@@ -53,6 +37,30 @@ def main(args):
     return 0
 
 
+def tests_totalFuelForA():
+    tests = [(2, 37), (1, 41), (3, 39), (10, 71)]
+    for case, expected in tests:
+        result = totalFuelForA(case)
+        fail_str = "" if result == expected else bold(' *** FAIL ***')
+        print(f"Fuel for {case}: {result}, should be {expected}{fail_str}")
+
+
+def tests_fuelForB():
+    tests = [(16, 5, 66), (1, 5, 10), (2, 5, 6), (0, 5, 15), (14, 5, 45)]
+    for start, end, expected in tests:
+        result = fuelForB(start, end)
+        fail_str = "" if result == expected else bold(' *** FAIL ***')
+        print(f"Fuel for {start} to {end}: {result}, should be {expected}{fail_str}")
+
+
+def tests_totalFuelForB():
+    tests = [(5, 168), (2, 206)]
+    for case, expected in tests:
+        result = totalFuelForB(case)
+        fail_str = "" if result == expected else bold(' *** FAIL ***')
+        print(f"Fuel for {case}: {result}, should be {expected}{fail_str}")
+
+
 def debug(myobj):
     global verbose
     if verbose:
@@ -63,7 +71,7 @@ def bold(s):
     return '\u001b[1m' + s + '\u001b[0m'
 
 
-def fuelForA(pos):
+def totalFuelForA(pos):
     global positions
     fuel = 0
     for crab in positions:
@@ -73,13 +81,7 @@ def fuelForA(pos):
 
 def fuelForB(start, end):
     dist = abs(start - end)
-    cost = 0
-    next = 1
-    while dist > 0:
-        cost += next
-        next += 1
-        dist -= 1
-    return cost
+    return dist * (dist + 1) / 2
 
 
 def totalFuelForB(pos):
@@ -97,7 +99,7 @@ def getAvg(x, y):
 def tryPosA(pos):
     global positions
     debug(f"Trying {pos}")
-    fuel = fuelForA(pos)
+    fuel = totalFuelForA(pos)
     debug(f" ... got {fuel} fuel needed.")
     return fuel
 
@@ -136,12 +138,14 @@ def puz(tryPos, beVerbose=False):
     next = last + 1
     next_val = tryPos(next)
     if next_val < last_val:
+        # if going up improves, increase until we stop
         while next_val < last_val:
             last = next
             last_val = next_val
             next += 1
             next_val = tryPos(next)
     else:
+        # otherwise try going down; decrease until we stop improving
         next = last - 1
         next_val = tryPos(next)
         while next_val < last_val:
@@ -156,5 +160,4 @@ def puz(tryPos, beVerbose=False):
 
 
 if __name__ == '__main__':
-    import sys
     sys.exit(main(sys.argv))
