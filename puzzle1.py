@@ -5,13 +5,16 @@ def main(args):
     print("Hello!")
     print("args: %(args)s" % locals())
 
-    print("meth1: %d" % (meth1()))
-    print("meth2: %d" % (meth2()))
+    print("m1: %d" % (method1()))
+    print("m2: %d" % (method2()))
+    print("m3: %d" % (method3()))
+    print("windows1: %d" % (windows1()))
+    print("windows2: %d" % (windows2()))
 
 
-def meth1():
+def method1():
     increases = 0
-    with open('input1.txt', 'r') as infile:
+    with open('input/input1.txt', 'r') as infile:
         last = int(infile.readline())
         nextline = infile.readline()
         while nextline:
@@ -24,9 +27,9 @@ def meth1():
     return increases
 
 
-def meth2():
+def method2():
     increases = 0
-    with open('input1.txt', 'r') as infile:
+    with open('input/input1.txt', 'r') as infile:
         first = True
         for line in infile:
             if first:
@@ -40,10 +43,51 @@ def meth2():
     return increases
 
 
-## Q. Can I do this in a parallel way?
-# Load the data into a list, split up the list up (determine indicies),
-# get each thread to work on a shared array (potentially saving in another array)
-# and return their counts at the end
+def method3():
+    increases = 0
+    vals = []
+    with open('input/input1.txt', 'r') as infile:
+        for line in infile:
+            vals.append(int(line))
+
+    for i in range(1, len(vals)):
+        delta = vals[i] - vals[i-1]
+        if delta > 0:
+            increases += 1
+
+    return increases
+
+
+def windows1():
+    increases = 0
+    vals = []
+    with open('input/input1.txt', 'r') as infile:
+        for line in infile:
+            vals.append(int(line))
+
+    for i in range(3, len(vals)):
+        delta = ( vals[i] + vals[i-1] + vals[i-2] ) - \
+                 ( vals[i-1] + vals[i-2] + vals[i-3] )
+        if delta > 0:
+            increases += 1
+
+    return increases
+
+
+def windows2():
+    increases = 0
+    vals = []
+    with open('input/input1.txt', 'r') as infile:
+        for line in infile:
+            vals.append(int(line))
+
+    for i in range(3, len(vals)):
+        delta = vals[i] - vals[i-3]
+        if delta > 0:
+            increases += 1
+
+    return increases
+
 
 if __name__ == '__main__':
     import sys

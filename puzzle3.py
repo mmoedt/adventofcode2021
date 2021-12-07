@@ -5,8 +5,8 @@ def main(args):
     print("Hello!")
     print("args: %(args)s" % locals())
 
-    product = puzB('input3.txt')
-    #product = puzB('test3.txt')
+    product = puzB('input/input3.txt')
+    #product = puzB('input/test3.txt')
     print("puz: { life: %(product)d }" % locals())
 
 

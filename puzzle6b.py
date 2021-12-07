@@ -28,11 +28,13 @@ def addDayForAges():
     fishAges[6] += fishAges[-1] # renewed fish
     fishAges[-1] = 0 # done with these guys
 
+
 def getTotal():
     global fishAges
     return sum(fishAges.values())
 
-def puz(fishDays, totalDays, beVerbose=False):
+
+def puzB(fishDays, totalDays, beVerbose=False):
     global verbose
     verbose = beVerbose
 

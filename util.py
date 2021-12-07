@@ -34,3 +34,9 @@ def doSwitch(locals, caseStr, args):
       ret = caseFuncs[caseStr](args)
 
     return ret
+
+
+def debug(myobj):
+    global verbose
+    if verbose:
+        print(str(myobj))

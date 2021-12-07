@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from altSwitch1 import doSwitch
+from util import doSwitch
 
 def main(args):
     print("Hello!")
     print("args: %(args)s" % locals())
 
-    product = get_product('input2.txt')
+    product = get_product('input/input2.txt')
     print("The computed product is: %(product)s" % locals())
     return 0  # fini
 

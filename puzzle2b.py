@@ -5,7 +5,7 @@ def main(args):
     print("Hello!")
     print("args: %(args)s" % locals())
 
-    product = p2b('input2.txt')
+    product = p2b('input/input2.txt')
     print("p2b: { product: %(product)d }" % locals())
 
 

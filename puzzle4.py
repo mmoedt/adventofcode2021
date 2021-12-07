@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 def main(args):
-    puzA_test('test4.txt', True)
-    puzA('input4.txt')
+    puzA_test('input/test4.txt', True)
+    puzA('input/input4.txt')
 
     return 0
 

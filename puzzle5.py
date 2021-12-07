@@ -3,8 +3,8 @@
 import re
 
 def main(args):
-    puz('test5.txt', True)
-    puz('input5.txt', False)
+    puz('input/test5.txt', True)
+    puz('input/input5.txt', False)
     return 0
 
 
