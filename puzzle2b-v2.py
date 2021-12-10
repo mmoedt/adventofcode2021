@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from util import doSwitch
+from util import do_switch
 
 def main(args):
     print("Hello!")
@@ -37,7 +37,7 @@ def get_product(infile_name):
             operations.append((cmd, int(val)))
 
     for cmd, val in operations:
-        doSwitch(locals(), cmd, (val,))
+        do_switch(locals(), cmd, (val,))
 
     product = horiz * depth
     return product

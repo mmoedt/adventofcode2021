@@ -1,7 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-def doSwitch(locals, caseStr, args):
+global verbose
+verbose = False
+
+
+def set_verbose(to_be):
+    global verbose
+    verbose = True if to_be else False
+
+
+def debug(myobj: str) -> None:
+    global verbose
+    if verbose:
+        print(str(myobj))
+    return
+
+
+def do_switch(locals, caseStr, args):
 
     def _sampleFunction(_args):
         pass
@@ -36,7 +52,19 @@ def doSwitch(locals, caseStr, args):
     return ret
 
 
-def debug(myobj):
-    global verbose
-    if verbose:
-        print(str(myobj))
+def bolded(s):
+    return '\u001b[1m' + s + '\u001b[0m'
+
+
+def bright_redded(s):
+    return '\u001b[1;31m' + s + '\u001b[0m'
+
+
+def expect(expected, result, input_data) -> bool:
+    if result == expected:
+        print(f"Test succeeded; data: {input_data}")
+        return True
+    print(f"Test {bolded('* FAILED *') }; data: {input_data}: {result} expected to be {expected}")
+    return False
+
+# SDG
